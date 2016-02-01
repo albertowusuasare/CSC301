@@ -8,7 +8,7 @@ Find examples of algorithms with the following time complexity. Places to look i
 |O(n log n) |merge sort| from previous classes| Recursive function that allows us to sort halves and then merge each sorted half|
 |O(n^C) |matrix multiplication |from previous classes| |
 |O(c^n) |Towers of Hanoi |Wikepedia | |
-| O(n!) | | | |
+| O(n!) |Permuation of set | | |
 
 
 
