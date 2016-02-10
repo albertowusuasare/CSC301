@@ -105,3 +105,67 @@ public class MyDictionary<K,V> {
 
 }
 ```
+### Problem 3-7
+```
+
+class BST<K, V> {
+	Node root;
+	V maximum;
+	V minimum
+
+//Functions
+	private void insertHelper(Node root, Node temp) {
+	if (root == null)
+		root = temp;
+	if (root.key.compareTo(key) < 0)
+		insertHelper(root.right, temp);
+	else
+		insertHelper(root.left, temp);
+	if (maximum.compareTo(value) > 0)
+		maximum = value;
+	else if (minimum.compareTo(value) > 0)
+		minimum = value;
+}
+
+private void insert (Key key, V value) {
+	if (key = null)
+		throwNewException(“Key cannot be null”)
+	Node node = newNode(key, value);
+	insertHelper (this.root, node);
+}
+
+private V searchHelper(Key key) {
+	int compareVal = this.root.key.compareTo(key);
+	if(compareVal ==0)
+		return this.root.value;
+ 	else if (compareVal <0)
+		return searchHelper(this.root.right,key)
+	else 
+		return search(this.root.left,key);
+}
+
+
+
+Delete: 
+
+For our delete function we employ a recursion on the structure of the BST in order to find the particular node to remove. We shall discuss the details of the recursion in different cases:
+
+i) Case 1: When the node we aim to delete is the root node.
+
+Here we run into some difficulty. Simply deleting the root node puts our entire BST at risk. By definition we cannot have a BST without a root so we must find a replacement. 
+
+To keep our the property of the BST intact we search the right subtree of the root for the “biggest” node and make that node our new root.
+
+ii)Case 2: When the node we aim to delete is in the right subtree.
+
+We recursively search for the node on the right hand side and employ a similar technique as discussed in case 2.
+
+iii)Case 3: When the node we aim to delete is in the left subtree.
+
+We recursively search for the node on the left hand side of the tree and employ a similar technique as discussed in case 2.
+
+
+Overall, we keep in mind whether or not we deleting the maximum or minimum node and update the minimum/maximum values accordingly 
+
+
+```
