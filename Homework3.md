@@ -4,7 +4,7 @@ Worked with Ajuna, Larry, Uzo
 
 ###Problem 3-1.
 We are to develop an algorithm that returns true if a string contains properly nested and balanced parentheses and false if otherwise.
-```
+```ruby
 def check_balanced_paren(paren)
   stack = Stack.new
   is_balanced = true
@@ -26,7 +26,7 @@ def check_balanced_paren(paren)
 end
 ```
 Alternatively we can have a non stack implementation as follows:
-```
+```java
 public class ParenAlgorithms{
 	public static boolean checkParenMatch(String parens){
 		char [] p = parens.toCharArray();
@@ -65,7 +65,7 @@ public class ParenAlgorithms{
 
 ###Problem 3-4
 We are to design a ditionary data struct ure where search insertion and deltion can all be processed in O(1) time.
-```
+```java
 import java.util.ArrayList;
 
 public class MyDictionary<K,V> {
@@ -106,7 +106,7 @@ public class MyDictionary<K,V> {
 }
 ```
 ### Problem 3-7
-```
+```java
 
 class BST<K, V> {
 	Node root;
