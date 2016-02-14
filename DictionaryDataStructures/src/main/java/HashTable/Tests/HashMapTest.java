@@ -16,6 +16,7 @@ import java.util.Random;
 
 /**
  * Created by albertowusu-asare on 2/10/16.
+ * TODO : refactor tests. DRY out functions
  */
 public class HashMapTest {
     @Rule

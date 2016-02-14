@@ -11,7 +11,7 @@ public interface Map<K,V> {
     /**
      * Adds a key value pair to to the Map
      */
-    void insert(K key, V value);
+    V insert(K key, V value);
 
     /**
      * returns a value for the corresponding key
@@ -21,7 +21,7 @@ public interface Map<K,V> {
     /**
      * returns a set of all the entries in the Map
      */
-    Set<Entry<K,V>> entrySet();
+    Set<MapEntry<K,V>> entrySet();
 
     /**
      * removes an entry from the Map according key

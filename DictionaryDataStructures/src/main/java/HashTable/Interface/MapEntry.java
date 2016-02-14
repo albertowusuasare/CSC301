@@ -6,7 +6,7 @@ package HashTable.Interface;
  * as any entity that can be used in a Map structure, or any other structure
  * require key value pairs.
  */
-public interface Entry<K,V> {
+public interface MapEntry<K,V> {
     /**
      * @return the key for this entry
      */
