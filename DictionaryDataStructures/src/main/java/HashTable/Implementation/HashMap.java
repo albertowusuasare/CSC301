@@ -4,6 +4,7 @@ package HashTable.Implementation;
 import HashTable.Interface.Map;
 import HashTable.Interface.MapEntry;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -44,7 +45,7 @@ public class HashMap<K,V> implements Map<K,V> {
     public V insert(K key, V value) {
         if(key == null)
             return insertWithNullKey(value);
-        int keyHash = key.hashCode();
+        int keyHash = getHashForKey(key);
         int index = getIndex(keyHash,tableSize );
         Entry<K,V> entry = entryTable[index];
         for(;entry !=null; entry= entry.next){
@@ -90,7 +91,7 @@ public class HashMap<K,V> implements Map<K,V> {
     public V get(K key) {
         if(key == null)
            return getNullKey();
-        int keyHash = key.hashCode();
+        int keyHash = getHashForKey(key);
         int index = getIndex(keyHash,tableSize);
         Entry<K,V> entry = entryTable[index];
         for(;entry !=null; entry = entry.next){
@@ -112,14 +113,26 @@ public class HashMap<K,V> implements Map<K,V> {
         return null;
     }
 
+
     @Override
-    public Set<MapEntry<K,V>> entrySet() {
+    public V remove(K key) {
+        int keyHash = getHashForKey(key);
+        int index = getIndex(keyHash, tableSize);
+        Entry<K,V> currentEntry = entryTable[index];
+        Entry<K,V> previousEntry;
+        while(currentEntry != null){
+            if(isSameKey(keyHash,key,currentEntry)){
+                previousEntry = currentEntry;
+                previousEntry = currentEntry.next;
+                return currentEntry.value;
+            }
+            currentEntry = currentEntry.next;
+        }
         return null;
     }
 
-    @Override
-    public void remove(Object key) {
-
+    private int getHashForKey(K key) {
+        return key.hashCode();
     }
 
     @Override
@@ -128,7 +141,21 @@ public class HashMap<K,V> implements Map<K,V> {
     }
     @Override
     public String toString() {
-        return "{}";
+        StringBuilder sb = new StringBuilder();
+        sb.append('{');
+        for(int i = 0; i < tableSize ; i++){
+            Entry<K,V> entry = entryTable[i];
+            while(entry != null){
+                if(sb.length() >1){
+                    sb.append(", ");}
+                sb.append(entry.key);
+                sb.append("=");
+                sb.append(entry.value);
+                entry = entry.next;
+            }
+        }
+        sb.append('}');
+        return sb.toString();
     }
 
     static class Entry<K,V> implements MapEntry<K,V>{

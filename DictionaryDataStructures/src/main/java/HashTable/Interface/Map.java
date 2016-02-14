@@ -18,15 +18,11 @@ public interface Map<K,V> {
      */
     V get(K key);
 
-    /**
-     * returns a set of all the entries in the Map
-     */
-    Set<MapEntry<K,V>> entrySet();
 
     /**
      * removes an entry from the Map according key
      */
-    void remove(K key);
+    V remove(K key);
 
     /**
      * Clears the entire map structure
