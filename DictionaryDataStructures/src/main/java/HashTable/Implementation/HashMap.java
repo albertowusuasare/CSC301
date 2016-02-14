@@ -30,6 +30,7 @@ public class HashMap<K,V> implements Map<K,V> {
         if(loadFactor <=0 )
             throw new Exception("Load factor value not accepted : " + loadFactor);
         entryTable = new Entry[initialCapacity];
+        tableSize = entryTable.length-1;
         this.loadFactor = loadFactor;
     }
     public HashMap(int capacity) throws Exception {
@@ -42,7 +43,7 @@ public class HashMap<K,V> implements Map<K,V> {
     @Override
     public V insert(K key, V value) {
         if(key == null)
-            insertWithNullKey(value);
+            return insertWithNullKey(value);
         int keyHash = key.hashCode();
         int index = getIndex(keyHash,tableSize );
         Entry<K,V> entry = entryTable[index];
@@ -54,7 +55,7 @@ public class HashMap<K,V> implements Map<K,V> {
             }
         }
         count++;
-        addNewEntryToTable(key, value,index,keyHash);
+        addNewEntryToTable(key, value, index, keyHash);
         return null;
     }
 
@@ -64,7 +65,7 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     private int getIndex(int keyHash, int tableSize) {
-        return 0;
+        return keyHash % (tableSize-1);
 
     }
 
@@ -72,12 +73,42 @@ public class HashMap<K,V> implements Map<K,V> {
         Entry entry = entryTable[index];
         entryTable[index] = new Entry(hash,key,value,entry);
     }
-    private void insertWithNullKey(Object value) {
-
+    private V insertWithNullKey(V value) {
+        for(Entry<K,V> e = entryTable[0];e != null; e=e.next){
+            if(e.key == null){
+                V oldValue = e.value;
+                e.value = value;
+                count ++;
+                return oldValue;
+            }
+        }
+        addNewEntryToTable(null,value,0,0);
+        return null;
     }
 
     @Override
-    public Object get(Object key) {
+    public V get(K key) {
+        if(key == null)
+           return getNullKey();
+        int keyHash = key.hashCode();
+        int index = getIndex(keyHash,tableSize);
+        Entry<K,V> entry = entryTable[index];
+        for(;entry !=null; entry = entry.next){
+            K entryKey;
+            if(isSameKey(keyHash,key,entry)){
+                return entry.value;
+            }
+        }
+        return null;
+    }
+
+    private V getNullKey() {
+        Entry<K,V> entry = entryTable[0];
+        for(;entry != null;entry = entry.next){
+            if(entry.key == null){
+                return entry.value;
+            }
+        }
         return null;
     }
 
@@ -94,6 +125,10 @@ public class HashMap<K,V> implements Map<K,V> {
     @Override
     public void clear() {
 
+    }
+    @Override
+    public String toString() {
+        return "{}";
     }
 
     static class Entry<K,V> implements MapEntry<K,V>{
