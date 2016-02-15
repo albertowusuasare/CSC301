@@ -29,4 +29,8 @@ public interface Map<K,V> {
      */
     void clear();
 
+    /**
+     *  Returns the size of the map currently
+     */
+    int size();
 }

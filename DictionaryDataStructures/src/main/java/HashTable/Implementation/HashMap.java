@@ -137,8 +137,17 @@ public class HashMap<K,V> implements Map<K,V> {
 
     @Override
     public void clear() {
-
+        for(int i = 0; i< entryTable.length;i++){
+            entryTable[i]=null;
+        }
+        tableSize = 0;
     }
+
+    @Override
+    public int size() {
+        return this.tableSize;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

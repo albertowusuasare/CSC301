@@ -54,18 +54,6 @@ public class HashMapTest {
         }
     }
 
-    //@Test
-//    public void entrySetTest() throws Exception{
-//        Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
-//        java.util.HashMap<Integer,Character> expectedIntegerMap = new java.util.HashMap<Integer, Character>();
-//        int upperBound = randInt(97,107);
-//        for (int i =97; i < upperBound; i++){
-//            integerMap.insert(i,new Character((char) i));
-//            expectedIntegerMap.put(i, new Character((char) i));
-//        }
-//       // assertEquals("EntrySet Test: ",expectedIntegerMap.entrySet(),integerMap.entrySet());
-//    }
-
     @Test
     public void removeTest() throws Exception {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
@@ -79,7 +67,7 @@ public class HashMapTest {
         assertFalse("Remove function: ", integerMap.get(randomNumber) == new Character((char) randomNumber));
     }
 
-    //@Test
+    @Test
     public void clearTest() throws Exception {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
         java.util.HashMap<Integer,Character> expectedIntegerMap = new java.util.HashMap<Integer, Character>();
@@ -88,19 +76,16 @@ public class HashMapTest {
             integerMap.insert(i,new Character((char) i));
         }
         integerMap.clear();
-       // assertTrue("Clear function test: ", integerMap.entrySet().isEmpty());
+        assertTrue("clearTest",integerMap.size() ==0);
     }
 
 
     private static int randInt(int min, int max) {
-
         // Usually this can be a field rather than a method variable
         Random rand = new Random();
-
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         int randomNum = rand.nextInt((max - min) + 1) + min;
-
         return randomNum;
     }
 }
