@@ -60,6 +60,13 @@ public class HashMap<K,V> implements Map<K,V> {
         return null;
     }
 
+    /**
+     * Checks if the a given key is the same as the key in an entry.
+     * @param keyHash
+     * @param key
+     * @param entry
+     * @return
+     */
     private boolean isSameKey( int keyHash,K key, Entry entry) {
         Object entryKey = null;
         return entry.hash == keyHash && ((entryKey = entry.key) == key) || key.equals(entryKey);

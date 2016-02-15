@@ -16,7 +16,6 @@ import java.util.Random;
 
 /**
  * Created by albertowusu-asare on 2/10/16.
- * TODO : refactor tests. DRY out functions
  */
 public class HashMapTest {
    @Rule
@@ -46,9 +45,7 @@ public class HashMapTest {
     public void getValueByKeyTest() throws Exception {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
         int upperBound = randInt(97,107);
-        for (int i =97; i < upperBound; i++){
-            integerMap.insert(i,new Character((char) i));
-        }
+        generateMap(integerMap, upperBound);
         for (int i =97; i < upperBound; i++){
             assertTrue(integerMap.get(i).equals(new Character((char) i)));
         }
@@ -58,9 +55,7 @@ public class HashMapTest {
     public void removeTest() throws Exception {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
         int upperBound = randInt(97,107);
-        for (int i =97; i < upperBound; i++){
-            integerMap.insert(i, new Character((char) i));
-        }
+        generateMap(integerMap, upperBound);
 
         int randomNumber = randInt(97,upperBound);
         integerMap.remove(randomNumber);
@@ -72,13 +67,16 @@ public class HashMapTest {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
         java.util.HashMap<Integer,Character> expectedIntegerMap = new java.util.HashMap<Integer, Character>();
         int upperBound = randInt(97,107);
+        generateMap(integerMap, upperBound);
+        integerMap.clear();
+        assertTrue("clearTest", integerMap.size() == 0);
+    }
+
+    private void generateMap(Map<Integer, Character> integerMap, int upperBound) {
         for (int i =97; i < upperBound; i++){
             integerMap.insert(i,new Character((char) i));
         }
-        integerMap.clear();
-        assertTrue("clearTest",integerMap.size() ==0);
     }
-
 
     private static int randInt(int min, int max) {
         // Usually this can be a field rather than a method variable
