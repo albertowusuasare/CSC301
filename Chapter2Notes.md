@@ -14,3 +14,4 @@ which belong to different classes, either f(n) =O(g(n)) or g(n) = O(f(n))
 #### Useful links
 --------
 http://www.algorithm.cs.sunysb.edu/algowiki/index.php/Algo-analysis-TADM2E
+http://cseweb.ucsd.edu/classes/sp08/cse101/hw/hw1soln.pdf
