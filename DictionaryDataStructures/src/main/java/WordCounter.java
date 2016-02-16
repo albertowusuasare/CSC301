@@ -26,7 +26,10 @@ public class WordCounter{
         this.fileName = fileName;
         this.counterMap = new HashMap<>();
     }
-    public  void readWords() throws IOException {
+    public List<String> readLinesInFiles() throws IOException {
+        return readLinesInFiles(this.fileName);
+    }
+    public List<String> readLinesInFiles(String fileName) throws IOException {
         List<String> wordsInFile = new ArrayList<String>();
         BufferedReader bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         String s;
@@ -35,6 +38,11 @@ public class WordCounter{
         }
         bufferedReader.close();
         this.linesFromFile = wordsInFile;
+        return this.linesFromFile;
+    }
+
+    public List<String> getLinesFromFiles(){
+        return this.linesFromFile;
     }
 
     public  void countWords(){

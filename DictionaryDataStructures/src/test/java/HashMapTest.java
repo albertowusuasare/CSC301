@@ -1,5 +1,3 @@
-package HashTable.Tests;
-
 import HashTable.Implementation.HashMap;
 import HashTable.Interface.Map;
 import junit.framework.TestCase;
