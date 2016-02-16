@@ -9,3 +9,8 @@ which belong to different classes, either f(n) =O(g(n)) or g(n) = O(f(n))
 ### 2.4 Working with the Big Oh
 -------------
 + When adding functions the sum of two functions is governed by the dominant one
+
+
+#### Useful links
+--------
+http://www.algorithm.cs.sunysb.edu/algowiki/index.php/Algo-analysis-TADM2E
