@@ -1,6 +1,7 @@
 /**
  * Created by albertowusu-asare on 2/16/16.
  */
+import HashTable.Interface.Map;
 import org.junit.Test;
 
 import java.io.File;
@@ -10,17 +11,25 @@ import static junit.framework.Assert.assertTrue;
 
 public class WordCounterTest {
 
+
     @Test
     public void readLinesFromFileTest() throws Exception {
-        WordCounter wc = new WordCounter("./TextFiles/SimpleText.txt");
-        String expectedLine = "Well,somebody’s doing the raping, Don.I mean somebody’s doing it. Who’s doing the raping? Who’s doing the raping?";
+        String filePath ="/Users/albertowusu-asare/Google Drive/Spring 2016/CSC301/github/CSC301" +
+                "/DictionaryDataStructures/src/test/TextFiles/SimpleText.txt";
+        WordCounter wc = new WordCounter(filePath);
         List<String> linesInFile=wc.readLinesInFiles();
-        assertTrue("Single line in file", linesInFile.size() == 1);
-        assertTrue(linesInFile.contains(expectedLine));
+        assertTrue("Single line in file", linesInFile.size() == 2);
     }
 
     @Test
-    public void countWordsTest(){
+    public void countWordsTest() throws Exception {
+        String filePath ="/Users/albertowusu-asare/Google Drive/Spring 2016/CSC301/github/CSC301" +
+                "/DictionaryDataStructures/src/test/TextFiles/SimpleText.txt";
+        WordCounter wc = new WordCounter(filePath);
+        List<String> linesInFile=wc.readLinesInFiles();
+        linesInFile.stream().forEach(s -> System.out.println(s));
+        wc.countWords();
+       // System.out.println(wc);
 
     }
 }

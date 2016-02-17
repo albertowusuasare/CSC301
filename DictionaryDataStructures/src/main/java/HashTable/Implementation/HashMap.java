@@ -14,6 +14,7 @@ import java.util.Set;
  * respective values using the hash table implementation.
  *
  * This provides constant time for the basic operations.
+ * TODO: Check array resize;
  */
 public class HashMap<K,V> implements Map<K,V> {
 
