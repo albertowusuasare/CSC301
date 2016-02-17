@@ -1,6 +1,5 @@
 package HashTable.Interface;
 
-import java.util.Set;
 
 /**
  * Created by albertowusu-asare on 2/10/16.
@@ -10,16 +9,20 @@ import java.util.Set;
 public interface Map<K,V> {
     /**
      * Adds a key value pair to to the Map
+     * @param key  the key to insert
+     * @param value the value to insert
      */
     V insert(K key, V value);
 
     /**
+     * @param key key to use in retrieving an entry
      * returns a value for the corresponding key
      */
     V get(K key);
 
 
     /**
+     * @param key to use in removing an entry
      * removes an entry from the Map according key
      */
     V remove(K key);

@@ -4,8 +4,7 @@ package HashTable.Implementation;
 import HashTable.Interface.Map;
 import HashTable.Interface.MapEntry;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * Created by albertowusu-asare on 2/10/16.
@@ -14,16 +13,17 @@ import java.util.Set;
  * respective values using the hash table implementation.
  *
  * This provides constant time for the basic operations.
- * TODO: Check array resize;
  */
 public class HashMap<K,V> implements Map<K,V> {
 
     static final int DEFAULT_INITIAL_CAPACITY = 32;
     static final double DEFAULT_LOAD_FACTOR = 0.75;
-    transient Entry[] entryTable;
+    static final int DEFAULT_EXPANDING_FACTOR= 2;
+    transient Entry [] entryTable;
     final double loadFactor;
     int tableSize;
-    int count;
+    int numEntries;
+    int expandingFactor;
 
 
     public HashMap(int initialCapacity, double loadFactor) throws Exception {
@@ -32,11 +32,13 @@ public class HashMap<K,V> implements Map<K,V> {
         if(loadFactor <=0 )
             throw new Exception("Load factor value not accepted : " + loadFactor);
         entryTable = new Entry[initialCapacity];
-        tableSize = entryTable.length-1;
+        tableSize = initialCapacity;
         this.loadFactor = loadFactor;
+        this.numEntries = 0;
+        this.expandingFactor = DEFAULT_EXPANDING_FACTOR;
     }
     public HashMap(int capacity) throws Exception {
-       this(capacity,DEFAULT_LOAD_FACTOR);
+       this(capacity, DEFAULT_LOAD_FACTOR);
     }
     public HashMap() throws Exception {
        this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
@@ -48,7 +50,7 @@ public class HashMap<K,V> implements Map<K,V> {
             return insertWithNullKey(value);
         int keyHash = getHashForKey(key);
         int index = getIndex(keyHash,tableSize );
-        Entry<K,V> entry = entryTable[index];
+        Entry<K,V> entry = (Entry<K,V>) entryTable[index];
         for(;entry !=null; entry= entry.next){
             if(isSameKey(keyHash,key, entry)){
                 V oldValue = entry.value;
@@ -56,17 +58,17 @@ public class HashMap<K,V> implements Map<K,V> {
                 return oldValue;
             }
         }
-        count++;
+        this.numEntries++;
         addNewEntryToTable(key, value, index, keyHash);
         return null;
     }
 
     /**
      * Checks if the a given key is the same as the key in an entry.
-     * @param keyHash
-     * @param key
-     * @param entry
-     * @return
+     * @param keyHash the hashcode corresponding to the key
+     * @param key the particular key to check
+     * @param entry the entry object containing the key to compare against.
+     * @return true if the the keys are the same. False if otherwise
      */
     private boolean isSameKey( int keyHash,K key, Entry entry) {
         Object entryKey = null;
@@ -79,15 +81,39 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     private void addNewEntryToTable(K key, V value, int index,int hash) {
-        Entry entry = entryTable[index];
-        entryTable[index] = new Entry(hash,key,value,entry);
+        Entry<K,V> entry = (Entry<K,V>) entryTable[index];
+        entryTable[index] = new Entry<>(hash,key,value,entry);
+        numEntries++;
+        if(isExpandTableFactor() ){
+            resizeTable();
+        }
     }
+
+    private void resizeTable() {
+        Entry [] newTable = new Entry [this.tableSize =this.tableSize *2];
+        transferEntries(newTable);
+        this.entryTable = newTable;
+
+    }
+
+    private void transferEntries(Entry<K, V>[] newTable) {
+        for(Entry<K,V> entry : this.entryTable){
+              while(entry != null) {
+                  int index = getIndex(entry.hash, this.tableSize);
+                  Entry<K,V> next = entry.next;
+                  entry.next = newTable[index];
+                  newTable[index] = entry;
+                  entry = next;
+              }
+        }
+    }
+
     private V insertWithNullKey(V value) {
         for(Entry<K,V> e = entryTable[0];e != null; e=e.next){
             if(e.key == null){
                 V oldValue = e.value;
                 e.value = value;
-                count ++;
+                this.numEntries ++;
                 return oldValue;
             }
         }
@@ -127,14 +153,19 @@ public class HashMap<K,V> implements Map<K,V> {
         int keyHash = getHashForKey(key);
         int index = getIndex(keyHash, tableSize);
         Entry<K,V> currentEntry = entryTable[index];
-        Entry<K,V> previousEntry;
+        Entry<K,V> previousEntry = currentEntry;
         while(currentEntry != null){
             if(isSameKey(keyHash,key,currentEntry)){
-                previousEntry = currentEntry;
-                previousEntry = currentEntry.next;
+                if(previousEntry == currentEntry){
+                    entryTable[index] = currentEntry.next;
+                }
+                else {
+                    previousEntry.next =currentEntry.next;
+                }
                 return currentEntry.value;
             }
-            currentEntry = currentEntry.next;
+            previousEntry = currentEntry;
+            currentEntry = previousEntry.next;
         }
         return null;
     }
@@ -149,6 +180,11 @@ public class HashMap<K,V> implements Map<K,V> {
             entryTable[i]=null;
         }
         tableSize = 0;
+    }
+
+    private boolean isExpandTableFactor (){
+        double factor = (double) this.numEntries / this.tableSize;
+        return (factor == this.loadFactor);
     }
 
     @Override
@@ -178,10 +214,10 @@ public class HashMap<K,V> implements Map<K,V> {
     static class Entry<K,V> implements MapEntry<K,V>{
         final K key;
         V value;
-        Entry next;
+        Entry<K,V> next;
         final int hash;
 
-        Entry(int hash, K key,V value, Entry next){
+        Entry(int hash, K key,V value, Entry<K,V> next){
             this.key = key;
             this.value = value;
             this.next = next;
@@ -197,12 +233,6 @@ public class HashMap<K,V> implements Map<K,V> {
         public V getValue() {
             return this.value;
         }
-        public Entry getNextEntry() {
-           return this.next;
-        }
 
-        public int getHash(){
-            return this.hash;
-        }
     }
 }
