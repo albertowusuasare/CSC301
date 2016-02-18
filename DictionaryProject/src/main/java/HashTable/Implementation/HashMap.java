@@ -156,6 +156,7 @@ public class HashMap<K,V> implements Map<K,V> {
         Entry<K,V> previousEntry = currentEntry;
         while(currentEntry != null){
             if(isSameKey(keyHash,key,currentEntry)){
+                numEntries --;
                 if(previousEntry == currentEntry){
                     entryTable[index] = currentEntry.next;
                 }
@@ -189,7 +190,7 @@ public class HashMap<K,V> implements Map<K,V> {
 
     @Override
     public int size() {
-        return this.tableSize;
+        return this.numEntries;
     }
 
     @Override
