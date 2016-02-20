@@ -57,17 +57,17 @@ public class WordCounter{
     public void populateMap(String [] arr){
         Integer val;
         for(String s : arr){
-            if((val = this.counterMap2.get(s)) == null){
-                this.counterMap2.put(s,1);
+            if((val = this.counterMap.get(s)) == null){
+                this.counterMap.insert(s,1);
             }
             else {
-                this.counterMap2.put(s,val++);
+                this.counterMap.insert(s,val++);
             }
         }
     }
 
     public String toString(){
-        return this.counterMap2.toString();
+        return this.counterMap.toString();
     }
 
 }

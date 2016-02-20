@@ -76,7 +76,7 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     private int getIndex(int keyHash, int tableSize) {
-        return keyHash % (tableSize-1);
+        return keyHash & (tableSize-1);
 
     }
 
@@ -171,7 +171,9 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     private int getHashForKey(K key) {
-        return key.hashCode();
+        int h = key.hashCode();
+        h ^= (h >>> 20) ^ (h >>> 12);
+        return h ^ (h >>> 7) ^ (h >>> 4);
     }
 
     @Override
