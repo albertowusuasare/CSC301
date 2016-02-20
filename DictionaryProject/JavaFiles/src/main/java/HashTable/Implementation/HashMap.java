@@ -83,7 +83,6 @@ public class HashMap<K,V> implements Map<K,V> {
     private void addNewEntryToTable(K key, V value, int index,int hash) {
         Entry<K,V> entry = (Entry<K,V>) entryTable[index];
         entryTable[index] = new Entry<>(hash,key,value,entry);
-        numEntries++;
         if(isExpandTableFactor() ){
             resizeTable();
         }
@@ -156,7 +155,7 @@ public class HashMap<K,V> implements Map<K,V> {
         Entry<K,V> previousEntry = currentEntry;
         while(currentEntry != null){
             if(isSameKey(keyHash,key,currentEntry)){
-                numEntries --;
+                this.numEntries --;
                 if(previousEntry == currentEntry){
                     entryTable[index] = currentEntry.next;
                 }
@@ -178,9 +177,12 @@ public class HashMap<K,V> implements Map<K,V> {
     @Override
     public void clear() {
         for(int i = 0; i< entryTable.length;i++){
-            entryTable[i]=null;
-        }
-        tableSize = 0;
+            Entry<K,V> e = null;
+            if((e =entryTable[i]) != null)
+                e.next = null;
+            }
+        this.tableSize = 0;
+        this.numEntries = 0;
     }
 
     private boolean isExpandTableFactor (){

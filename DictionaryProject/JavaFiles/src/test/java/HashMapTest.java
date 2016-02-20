@@ -53,11 +53,12 @@ public class HashMapTest {
     public void removeTest() throws Exception {
         Map<Integer,Character> integerMap  = new HashMap<Integer, Character>();
         int upperBound = randInt(97,107);
-        generateMap(integerMap, 98);
-        int randomNumber = randInt(97,upperBound);
+        integerMap.insert(97, 'a');
+        //generateMap(integerMap, 98);
+      //  int randomNumber = randInt(97,upperBound);
         integerMap.remove(97);
-        System.out.println(integerMap.size());
-        assertTrue("Remove Test: ",integerMap.size() == 0);
+       // System.out.println("Integer Map size :" + integerMap.size());
+        assertTrue("Remove Test: ", integerMap.size() == 0);
     }
 
     @Test
@@ -66,8 +67,10 @@ public class HashMapTest {
         java.util.HashMap<Integer,Character> expectedIntegerMap = new java.util.HashMap<Integer, Character>();
         int upperBound = randInt(97,107);
         generateMap(integerMap, upperBound);
+       // System.out.println("Before clear : " + integerMap.size());
         integerMap.clear();
-        System.out.println(integerMap.size());
+        //System.out.println("After clear " +integerMap.size());
+        //System.out.println("Entries after clear :");
         assertTrue("clearTest", integerMap.size() == 0);
     }
 
