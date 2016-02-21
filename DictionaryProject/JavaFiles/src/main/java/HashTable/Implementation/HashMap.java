@@ -14,7 +14,7 @@ import HashTable.Interface.MapEntry;
  *
  * This provides constant time for the basic operations.
  */
-public class HashMap<K,V> implements Map<K,V> {
+public class HashMap<K,V extends Comparable<V>> implements Map<K,V> {
 
     static final int DEFAULT_INITIAL_CAPACITY = 32;
     static final double DEFAULT_LOAD_FACTOR = 0.75;
@@ -197,6 +197,24 @@ public class HashMap<K,V> implements Map<K,V> {
         return this.numEntries;
     }
 
+    public Entry<K,V> getMax(){
+        Entry<K,V> maximumSoFar =this.entryTable[0];
+        for(int i = 0;i < tableSize; i++){
+            Entry<K,V> currentEntry = this.entryTable[i];
+            for(; currentEntry != null;currentEntry =currentEntry.next){
+                if (maximumSoFar.value.compareTo(currentEntry.value) < 0){
+                    maximumSoFar= currentEntry;
+                }
+            }
+        }
+
+        return maximumSoFar;
+    }
+
+    public Entry<K,V> getMin(){
+        return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -240,4 +258,5 @@ public class HashMap<K,V> implements Map<K,V> {
         }
 
     }
+
 }
