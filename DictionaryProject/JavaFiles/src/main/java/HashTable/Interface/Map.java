@@ -36,4 +36,7 @@ public interface Map<K,V> {
      *  Returns the size of the map currently
      */
     int size();
+
+    MapEntry<K,V> getMax();
+    MapEntry<K,V> getMin();
 }

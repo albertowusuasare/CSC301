@@ -11,9 +11,9 @@ import static junit.framework.Assert.assertTrue;
 
 public class WordCounterTest {
     final String FILENAME ="/Users/albertowusu-asare/Google Drive/Spring" +
-            " 2016/CSC301/github/CSC301/DictionaryProject/JavaFiles/src/test/TextFiles/SimpleText.txt";
+            " 2016/CSC301/github/CSC301/DictionaryProject/JavaFiles/src/test/TextFiles/oxfordMedical.txt";
 
-    @Test
+    //@Test
     public void readLinesFromFileTest() throws Exception {
         String filePath = FILENAME;
         WordCounter wc = new WordCounter(filePath);

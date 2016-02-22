@@ -58,16 +58,23 @@ public class WordCounter{
         Integer val;
         for(String s : arr){
             if((val = this.counterMap.get(s)) == null){
-                this.counterMap.insert(s,1);
+                this.counterMap.insert(s, 1);
+                //this.counterMap2.put(s, 1);
             }
             else {
-                this.counterMap.insert(s,val++);
+                this.counterMap.insert(s,++val);
+               // this.counterMap2.put(s,++val);
             }
         }
     }
 
     public String toString(){
-        return this.counterMap.toString();
+        //return this.counterMap2.toString();
+       return this.counterMap.get("The").toString();
+    }
+
+    public Map<String,Integer> getMap(){
+        return this.counterMap;
     }
 
 }

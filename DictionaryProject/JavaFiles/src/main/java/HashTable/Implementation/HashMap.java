@@ -197,6 +197,7 @@ public class HashMap<K,V extends Comparable<V>> implements Map<K,V> {
         return this.numEntries;
     }
 
+    @Override
     public Entry<K,V> getMax(){
         Entry<K,V> maximumSoFar =this.entryTable[0];
         for(int i = 0;i < tableSize; i++){
@@ -211,6 +212,7 @@ public class HashMap<K,V extends Comparable<V>> implements Map<K,V> {
         return maximumSoFar;
     }
 
+    @Override
     public Entry<K,V> getMin(){
         return null;
     }
