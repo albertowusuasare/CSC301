@@ -3,21 +3,23 @@
 
 Displaying the results for : Holmes.txt ...
 
-|Function Call | Time taken for function call (ns = 10^-9 s)|
+|Function Call | Time taken for function call (ms = 10^-3 s)|
 ------------- | ------------------------------
-MIN          |                                12920
-MAX           |                               16242776
-GET( Holmes )     |                           9674
-INSERT( wumpus )    |                         15899
-DELETE( klay )       |8598
+MIN          |                               2.871752
+MAX           |                              10.324539
+GET( Holmes )     |                           0.025127
+INSERT( wumpus )    |                         0.023077
+DELETE( klay )       |0.009721
+
 
 
 Displaying the results for OxfordMedical.txt 
 
-|Function Call | Time taken for function call  (ns = 10^-9 s)|
+|Function Call | Time taken for function call  (ms = 10^-3 s)|
 |--------------|-------------------------------|
-MIN                 |                         1209
-MAX                 |                         350243
-GET( Anteater )     |                        1113
-INSERT( aardvark )  |               1907
-DELETE( the )       |          4017
+MIN                 |                         1.120807
+MAX                 |                         0.352837
+GET( Anteater )     |                        0.00313
+INSERT( aardvark )  |              0.002146
+DELETE( the )       |         0.004756
+
