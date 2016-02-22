@@ -1,5 +1,6 @@
 ##Project1 Results
 -----------
+Processor : 1.3 GHz Intel Core i5
 
 Displaying the results for : Holmes.txt ...
 
