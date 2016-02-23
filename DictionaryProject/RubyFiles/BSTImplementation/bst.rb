@@ -29,7 +29,7 @@ attr_accessor :root_node
 	# @param[key] the key corresponding to the entry to remove
 	# 	     null if the entry does not exist
 	def get(key)
-		return get(key,root_key);
+		return get(key,root_node);
 	end
 
 	# Removes the entry corresponding to the key 
@@ -37,7 +37,8 @@ attr_accessor :root_node
 	# @param[key] the key corresponding to the entry to remove
 	# @return [V] the value of the entry to remove
 	# 	      null if the entry does not  exist
-	def remove
+	def remove (key)
+		return remove(key,root_node)
 	end
 
 
@@ -73,24 +74,47 @@ private
 	end
 
 	def get(key, root_node)
-		
 		root_key =root_node[:key]
 		if(key == root_key)
 			return root_node[:value]
-		if key < root_node[:key]
-		 get(key,root_node[:left])
+		if key < root_key
+		 return get(key,root_node[:left])
 		end
 
-		if key > root_node[:key]
-		 get(key,root_node[:right])
+		if key > root_key
+		 return get(key,root_node[:right])
 		end
 
-
+		return null
 	end
 
+	def remove(key, root_node) 
+		if root_node == null
+			return root_node
+		end
+		root_key =root_node[:key]
 
-	def key_compare(root_key, new_key)
-		return root_key <=> new_key
+		if(key < root_key)
+			return remove(key, root_node[:left])
+		end
+
+		if(key > root_key)
+			return remove(key,root_node[:right])
+		end
+
+		if hasTwoChildren
+			min_val_right = findMin(root_node[:right])[:value]
+			root_node[:value] = min_val_right
+			remove(min_val_right,root_node[:right])
+		end
+	end
+
+	def hasTwoChildren(root_node)
+		return (root[:left] != null && root[:right] !=null)
+	end
+
+	def findMin(root_node)
+		return null
 	end
 
 	def initialize_tree()
