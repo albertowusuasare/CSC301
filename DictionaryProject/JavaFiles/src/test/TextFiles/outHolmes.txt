@@ -1,0 +1,7 @@
+Displaying the results for /Users/albertowusu-asare/Google Drive/Spring 2016/CSC301/github/CSC301/DictionaryProject/JavaFiles/src/test/TextFiles/Holmes.txt ...
+Function Call => Time taken for function call
+MIN                                          =>8.165476
+MAX                                          =>1.207736
+GET( Holmes )                             =>0.024518
+INSERT( wumpus )                 =>0.331027
+DELETE( king )                 =>0.012634

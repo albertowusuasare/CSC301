@@ -50,7 +50,7 @@ public class HashMap<K,V extends Comparable<V>> implements Map<K,V> {
             return insertWithNullKey(value);
         int keyHash = getHashForKey(key);
         int index = getIndex(keyHash,tableSize );
-        Entry<K,V> entry = (Entry<K,V>) entryTable[index];
+        Entry<K,V> entry = entryTable[index];
         for(;entry !=null; entry= entry.next){
             if(isSameKey(keyHash,key, entry)){
                 V oldValue = entry.value;
@@ -208,13 +208,21 @@ public class HashMap<K,V extends Comparable<V>> implements Map<K,V> {
                 }
             }
         }
-
         return maximumSoFar;
     }
 
     @Override
     public Entry<K,V> getMin(){
-        return null;
+        Entry<K,V> minimumSoFar =this.entryTable[0];
+        for(int i = 0;i < tableSize; i++){
+            Entry<K,V> currentEntry = this.entryTable[i];
+            for(; currentEntry != null;currentEntry =currentEntry.next){
+                if (minimumSoFar.value.compareTo(currentEntry.value) > 0){
+                    minimumSoFar= currentEntry;
+                }
+            }
+        }
+        return minimumSoFar;
     }
 
     @Override

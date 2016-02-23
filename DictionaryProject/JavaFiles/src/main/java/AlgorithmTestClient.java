@@ -1,8 +1,6 @@
 import HashTable.Interface.MapEntry;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -23,44 +21,69 @@ public class AlgorithmTestClient {
 
     public static void runTests(String inputFileName,String outputFileName,List<Entry<String,String>> functionList)
             throws Exception {
-        Map<String,MapEntry<String,Long>> resultMap = new HashMap<>();
+        Map<String,MapEntry<String,Double>> resultMap = new HashMap<>();
         WordCounter wc = new WordCounter(inputFileName);
         wc.readLinesInFiles();
         wc.countWords();
         for(Entry<String,String> e : functionList) {
-            long duration =callMethod(e.key,e.value,wc.getMap());
-            Entry<String,Long> entry = new Entry<>(e.value,new Long(duration));
+            double duration =callMethod(e.key,e.value,wc.getMap());
+            Entry<String,Double> entry = new Entry<>(e.value,new Double(duration));
             resultMap.put(e.key,entry);
         }
         printResults(inputFileName, outputFileName,resultMap);
     }
 
-    private static long callMethod(String methodName,String methodArg, HashTable.Interface.Map<String,Integer> counterMap){
-        long startTime , endTime;
+    private static double callMethod(String methodName,String methodArg, HashTable.Interface.Map<String,Integer> counterMap){
+        long startTime =0 , endTime =0,duration;
         if(methodName.equals("MIN")){
              startTime = System.nanoTime();
              counterMap.getMin();
              endTime = System.nanoTime();
-            long duration = (endTime - startTime);
-            return duration;
+        } else if (methodName.equals("MAX")){
+            startTime = System.nanoTime();
+            counterMap.getMax();
+            endTime = System.nanoTime();
+        } else if (methodName.equals("GET")){
+            startTime = System.nanoTime();
+            counterMap.get(methodArg);
+            endTime = System.nanoTime();
+        }else if (methodName.equals("INSERT")){
+            startTime = System.nanoTime();
+            counterMap.insert(methodArg,1);
+            endTime = System.nanoTime();
+        } else if(methodName.equals("DELETE")) {
+            startTime = System.nanoTime();
+            counterMap.remove(methodArg);
+            endTime = System.nanoTime();
         }
 
-        return -1;
+         duration = (endTime - startTime);
+        return (double) duration /1000000.0 ;
+
     }
 
-    private static  void printResults(String inputFileName, String outputFileName,Map<String,MapEntry<String,Long>> resultMap) throws IOException {
+    private static  void printResults(String inputFileName, String outputFileName,Map<String,MapEntry<String,Double>> resultMap) throws IOException {
+
         FileWriter fw = new FileWriter(outputFileName);
+        BufferedWriter bw = new BufferedWriter(fw);
         String header = "Displaying the results for " + inputFileName +" ...";
         String title = "Function Call => Time taken for function call";
-        MapEntry<String,Long> e = null;
-        fw.write(header);
-        fw.write(title);
-        fw.write("MIN                                          =>" + resultMap.get("MIN").getValue());
-        fw.write("MAX                                          =>" + resultMap.get("MAX").getValue());
-        fw.write("GET( "+(e=resultMap.get("GET")).getKey()+" )                             =>" + e.getValue());
-        fw.write("INSERT( "+(e=resultMap.get("INSERT")).getKey()+" )                 =>" + e.getValue());
-        fw.write("DELETE( "+(e=resultMap.get("DELETE")).getKey()+" )                 =>" + e.getValue());
-        fw.close();
+        MapEntry<String,Double> e = null;
+        bw.write(header);
+        bw.newLine();
+        bw.write(title);
+        bw.newLine();
+        bw.write("MIN                                          =>" + resultMap.get("MIN").getValue());
+        bw.newLine();
+        bw.write("MAX                                          =>" + resultMap.get("MAX").getValue());
+        bw.newLine();
+        bw.write("GET( " + (e = resultMap.get("GET")).getKey() + " )                             =>" + e.getValue());
+        bw.newLine();
+        bw.write("INSERT( " + (e = resultMap.get("INSERT")).getKey() + " )                 =>" + e.getValue());
+        bw.newLine();
+        bw.write("DELETE( " + (e = resultMap.get("DELETE")).getKey() + " )                 =>" + e.getValue());
+        bw.newLine();
+        bw.close();
     }
 
     static class Entry<K,V> implements MapEntry<K,V>{
@@ -98,20 +121,24 @@ public class AlgorithmTestClient {
         functionEntries.add(new Entry("DELETE",args[2]));
         return functionEntries;
     }
-    public static void main(String args) throws Exception {
-        String [] argsHolmes = {"Holmes","wumpus","klay"};
+    public static void main(String []args) throws Exception {
+        final String root ="/Users/albertowusu-asare/Google Drive/Spring" +
+                " 2016/CSC301/github/CSC301/DictionaryProject/JavaFiles/src/test/TextFiles/";
+        String [] argsHolmes = {"Holmes","wumpus","king"};
         String [] argsOxford = {"Anteater","aardvark","the"};
+        String [] argsWords2 = {"likely","hyphenation","brisk"};
         List<Entry<String,String>> holmesFunctionList = initialize(argsHolmes);
         List<Entry<String,String>> oxfordFunctionList = initialize(argsOxford);
+        List<Entry<String,String>> words2FunctionList = initialize(argsWords2);
 
         List<Entry<String,List<Entry<String,String>>>> testRuns = new ArrayList<>();
         testRuns.add( new Entry<>("Holmes.txt", holmesFunctionList));
-        testRuns.add(new Entry<>("OxfordMedical.text", oxfordFunctionList));
-
+        testRuns.add(new Entry<>("OxfordMedical.txt", oxfordFunctionList));
+        testRuns.add(new Entry<>("words2.txt", words2FunctionList));
 
         for(Entry<String,List<Entry<String,String>>> e : testRuns){
-            String outputFileName = "out" + e.getKey();
-            runTests(e.getKey(),outputFileName,e.getValue());
+            String outputFileName =  root+"out"+e.getKey();
+            runTests(root+e.getKey(),outputFileName,e.getValue());
         }
     }
 }

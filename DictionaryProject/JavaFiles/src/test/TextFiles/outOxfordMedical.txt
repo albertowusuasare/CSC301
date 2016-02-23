@@ -1,0 +1,7 @@
+Displaying the results for /Users/albertowusu-asare/Google Drive/Spring 2016/CSC301/github/CSC301/DictionaryProject/JavaFiles/src/test/TextFiles/OxfordMedical.txt ...
+Function Call => Time taken for function call
+MIN                                          =>0.266986
+MAX                                          =>0.307037
+GET( Anteater )                             =>9.97E-4
+INSERT( aardvark )                 =>0.001549
+DELETE( the )                 =>0.003161

@@ -2,10 +2,12 @@ import HashTable.Implementation.HashMap;
 import HashTable.Interface.Map;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 /**
@@ -20,6 +22,7 @@ public class WordCounter{
     private HashMap<String,Integer> counterMap;
     private java.util.HashMap<String,Integer> counterMap2;
     private String splitCriteria = "\\s+";
+    private final boolean CASE_SENSITIVE = true;
 
     WordCounter() throws Exception {
          this(".");
@@ -35,7 +38,7 @@ public class WordCounter{
         return readLinesInFiles(this.fileName);
     }
     public List<String> readLinesInFiles(String fileName) throws IOException {
-        List<String> wordsInFile = new ArrayList<String>();
+       List<String> wordsInFile = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
         String s;
         while((s= bufferedReader.readLine()) != null){
@@ -43,6 +46,7 @@ public class WordCounter{
         }
         bufferedReader.close();
         this.linesFromFile = wordsInFile;
+
         return this.linesFromFile;
     }
 
@@ -51,15 +55,18 @@ public class WordCounter{
     }
 
     public void countWords(){
-      linesFromFile.stream().map(s -> s.split(splitCriteria )).forEach(arr -> populateMap(arr));
+      linesFromFile.stream().map(s -> s.split(splitCriteria)).forEach(arr -> populateMap(arr));
     }
 
     public void populateMap(String [] arr){
         Integer val;
-        for(String s : arr){
+        for(String s:arr){
+            if(CASE_SENSITIVE)
+                s= s.toLowerCase();
+
             if((val = this.counterMap.get(s)) == null){
                 this.counterMap.insert(s, 1);
-                //this.counterMap2.put(s, 1);
+               // this.counterMap2.put(s, 1);
             }
             else {
                 this.counterMap.insert(s,++val);
@@ -70,7 +77,7 @@ public class WordCounter{
 
     public String toString(){
         //return this.counterMap2.toString();
-       return this.counterMap.get("The").toString();
+       return this.counterMap.get("the").toString();
     }
 
     public Map<String,Integer> getMap(){
