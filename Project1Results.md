@@ -35,3 +35,14 @@ GET( Anteater )     |                        9.97E-4
 INSERT( aardvark )  |              0.001549
 DELETE( the )       |         0.003161
 
+
+
+### Project code Summary
+---------------------
+
+|Descriptor | Quantity|
+------------|--------
+Lines of code | 688
+Total number of files  | 7
+Number of implementation files |5
+Number of test files | 2
