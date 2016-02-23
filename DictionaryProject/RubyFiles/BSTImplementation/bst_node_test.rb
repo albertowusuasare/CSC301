@@ -7,7 +7,6 @@ $LOAD_PATH << '.'
 
   def setup
   	node_args = {:key => "Albert", :value => nil,:left => nil, :right => nil, :parent => nil}
-    #node_args = {:key => "Albert", :value => "Owusu-Asare",:left => "left", :right => "right", :parent => "parent"}
     @bstnode = BstNode::Node.new(node_args)
   end
 
