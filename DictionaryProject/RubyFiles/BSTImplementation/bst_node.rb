@@ -6,7 +6,7 @@ module BstNode
 
 		#@param [args] is a hash of the input attributes needed
 		def initialize(args)
-			puts "Entered Node initialize"
+			#puts "Entered Node initialize"
 			if(args.size != 5)
 				raise ArgumentError, "Argument Size must be 5"
 				#throw :ArgumentError

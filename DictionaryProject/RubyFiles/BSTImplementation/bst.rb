@@ -4,6 +4,7 @@ $LOAD_PATH << '.'
 require "bst_node.rb"
 class BstDictionary
 attr_accessor :root_node
+
 	def initialize(key = nil,value =nil)
 		puts "entered BstDictionary initialize"
 		node_args = {:key => key, :value => value,:left => nil, :right => nil, :parent => nil}
@@ -16,10 +17,9 @@ attr_accessor :root_node
 	# @param[value] the value corresponding to the input entry
 	# @return [V] the value of the old entry if the key already exists. Replaces old value with new value
 	# 	      null if the entry does not yet exist
-	attr_reader :key,:value
-		attr_accessor :left, :right,:parent
+
 	def insert(key,value)
-		node_args = {:key => key, :value => value,:left => "March", :parent => "April"}
+		node_args = {:key => key, :value => value,:left => nil, :right => nil, :parent => nil}
 		return insert(node_args)
 	end
 
@@ -29,6 +29,7 @@ attr_accessor :root_node
 	# @param[key] the key corresponding to the entry to remove
 	# 	     null if the entry does not exist
 	def get(key)
+		return get(key,root_key);
 	end
 
 	# Removes the entry corresponding to the key 
@@ -71,9 +72,25 @@ private
 
 	end
 
+	def get(key, root_node)
+		
+		root_key =root_node[:key]
+		if(key == root_key)
+			return root_node[:value]
+		if key < root_node[:key]
+		 get(key,root_node[:left])
+		end
 
-	def key_equal?(root_key, new_key)
+		if key > root_node[:key]
+		 get(key,root_node[:right])
+		end
 
+
+	end
+
+
+	def key_compare(root_key, new_key)
+		return root_key <=> new_key
 	end
 
 	def initialize_tree()

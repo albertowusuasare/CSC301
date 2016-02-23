@@ -15,13 +15,11 @@ $LOAD_PATH << '.'
   	assert(@bstnode ,"Assert that the node is initialized")
   end
 
-
-def fields_set_test
+  def test_fields_set
     node_args = {:key => 97, :value => 'a',:left => nil, :right => nil, :parent => nil}
-    #node_args = {:key => "Albert", :value => "Owusu-Asare",:left => "left", :right => "right", :parent => "parent"}
     @bstnode = BstNode::Node.new(node_args)
     assert_equal(97,@bstnode.key,"fields_set_test: assert key ")
     assert_equal('a',@bstnode.value,"fields_set_test: assert value")
-end
+  end
 
   end
