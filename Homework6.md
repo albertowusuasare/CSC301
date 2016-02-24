@@ -71,3 +71,18 @@ sorted-array: Allows you to use binary search and find an item in O(log n) time
 sorted-array: With heaps you will have to make sure the heap property is always intact and that takes more operations averagely to do
 + Want to find the minimum element quickly.
 sorted-array : We can use binary search on a sorted array in O(log n) time but with a max heap we have to search through all the elements
+
+#### 4.14
+-------
+
+We can imagine our k sorted lists as buckets with the elements in it sorted such that the smallest element is on the top level in the bucket. We shall utilise the a min-heap data structure in sorting all the n elements spread into the k buckets. Recall that  that for a min-heap of 'e' entries, the order for the extraction(find and remove) of the minimum element is O(log e). Recall also the insertion of an item into the heap is of the order O(log e).
+
+Our algorithm then is as follows:
+
+1. Insert the top level of the buckets into the heap. Thus insert all the smallest elements of our buckets into the heap. The order of this operation is O(k log k) since there are k buckets and for each bucket the insertion costs logarithmic time.
+2. At each index in our final array (the array we will put our final sorted elements in), we extract the minimum from the heap and then insert the min heap element into that index in the final array. 
+3. We then go back to the bucket from which the element we inserted into our final array was from ( we need to encapsulate the bucket location together with the value at  in a structure to put in the heap). We insert the next smallest element of that bucket to the heap. 
+4. We repeat 2 and 3 until we have filled the entire n elements of our final array. Note that because we go through the n elements and perform heap insert operations at each index. We have a contributing cost of O(n log k).
+
+
+Overall our cost is of the form  O(k log k) + O(n log k). = O (n log k) since n >= k
