@@ -86,3 +86,40 @@ Our algorithm then is as follows:
 
 
 Overall our cost is of the form  O(k log k) + O(n log k). = O (n log k) since n >= k
+
+#### 4.18
+-------
+
+```java
+  public static String [] partitionColors (String [] arr){
+        final String WHITE = "w";
+        final String RED = "r";
+        final String BLUE = "b";
+        int redWhite = 0;
+        int whiteBlue = arr.length-1;
+        int arrLength = arr.length;
+        for (int i = 0; i < arrLength; i++ ){
+            String examinedValue = arr[i];
+            if( redWhite < whiteBlue) {
+                if (examinedValue.equals(RED)) {
+                    swap(arr, i, redWhite);
+                    redWhite++;
+                    i--;
+                }
+
+                if (examinedValue.equals(BLUE)) {
+                    swap(arr, i, whiteBlue);
+                    whiteBlue--;
+                    i--;
+                }
+            }
+        }
+        return arr;
+    }
+
+    private static <T> void swap(T [] arr, int i, int j){
+        T val = arr[i];
+        arr[i] = arr[j];
+        arr[j] = val;
+    }
+```
