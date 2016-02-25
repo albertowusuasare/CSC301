@@ -123,3 +123,7 @@ Overall our cost is of the form  O(k log k) + O(n log k). = O (n log k) since n 
         arr[j] = val;
     }
 ```
+#### 4.21
+-------
+
+During merging the algorithm should settle key equality by checking to see which key occured first in the original array. In order to know which key occured first, we can have a wrap around object that will encapsulate both a key and the index in the original array that the key is. This will take up more space but we dont lose in time complexity.
