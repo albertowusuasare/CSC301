@@ -1,6 +1,6 @@
 ###Homework 6
 --------
-####Questions 4.3, 4.5, 4.13,4.14,4.16,4.18,4.21
+####Questions 4.3, 4.5, 4.13,4.14,4.16,4.18,4.21,4,29
 
 #### 4.3
 -------
@@ -127,3 +127,19 @@ Overall our cost is of the form  O(k log k) + O(n log k). = O (n log k) since n 
 -------
 
 During merging the algorithm should settle key equality by checking to see which key occured first in the original array. In order to know which key occured first, we can have a wrap around object that will encapsulate both a key and the index in the original array that the key is. This will take up more space but we dont lose in time complexity.
+
+#### 4.29
+-------
+
+If there was such a data structure that allows constant time insert, max, and extract max operations, then we will be able to sort in linear time. 
+```ruby
+arr.each |x| do
+   insert x into heap,
+end
+
+arrSorted.eachIndex |i, x| do 
+   arrSorted[i]= extractMax from Heap
+end
+
+```
+Note that this sorting algorithm O(n) is below the acccepted lower bound for sorting algorithms (n log n) so this could not possibly be.
