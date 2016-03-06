@@ -21,4 +21,11 @@ $LOAD_PATH << '.'
     assert_equal('a',@bstnode.value,"fields_set_test: assert value")
   end
 
+  def test_to_s
+    node_args = {:key => 97, :value => 'a',:left => nil, :right => nil, :parent => nil}
+    @bstnode = BstNode::Node.new(node_args)
+    assert_equal(97,@bstnode.key,"fields_set_test: assert key ")
+    assert_equal('a',@bstnode.value,"fields_set_test: assert value")
+  end
+
   end

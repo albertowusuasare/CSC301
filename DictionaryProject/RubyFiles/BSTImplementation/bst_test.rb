@@ -49,4 +49,26 @@ $LOAD_PATH << '.'
    	get_result = my_dictionary.get('a')
    	assert(97 == get_result,"test_get: Assert  simple get case")
    end
+
+   def test_contains
+   	my_dictionary = BstDictionary.new()
+   	alphabets = ('a'..'b').to_a
+  	alphabets.each do |x|
+  		 my_dictionary.insert(x,x.ord)
+  		 assert(my_dictionary.contains?(x),"test_contains : Assert key is contained")
+  	end
+   end
+
+   def test_to_s
+   	 my_dictionary = BstDictionary.new()
+   	alphabets = ('a'..'e').to_a
+  	alphabets.each do |x|
+  		 my_dictionary.insert(x,x.ord)
+  	end
+
+  	puts "Test_to_S" + my_dictionary.to_s
+
+   end
+
+
   end

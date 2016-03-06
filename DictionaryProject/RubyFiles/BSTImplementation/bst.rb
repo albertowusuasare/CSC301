@@ -47,23 +47,56 @@ class BstDictionary
 	# @return [V] the value of the entry to remove
 	# 	      null if the entry does not  exist
 	def remove (key)
-		return remove_at_node(key,root_node)
+		return remove_at_node(key,@root_node)
 	end
 
 
 
 	# Removes all the entries from the dictionary
 	def clear
-		clear(@root_node)
+		clear_at_node(@root_node)
 	end
 
+	#Asserts if a key is contained in the dictionary
+	def contains?(key)
+		return contains_at_node?(key,@root_node)
+	end
 	# Returns the current size of the dictionary. Thus how many entries the dictionary holds.
 	def size
 		return @size
 	end
 
+	def to_s
+ 	  return "[" + to_s_at_node(@root_node).to_s + "]"
+ 	end
 	# Below are the helper methods for implementing the recursive algorithms for the core operations
+	def to_s_at_node(root_node)
+		if root_node.nil?
+			return "{}"
+		end
+		return to_s_at_node(root_node.left).to_s + ", {" + root_node.key.to_s + "=>" + root_node.value.to_s + " }, " + to_s_at_node(root_node.right).to_s
+	end
 	
+	def contains_at_node?(key,root_node)
+		puts "Enter contain helper method"
+		if root_node.nil? 
+			return false
+		end
+
+		root_key = root_node.key
+		if (key == root_key)
+			return true
+		end
+
+		if(key < root_key)
+			return contains_at_node?(key, root_node.left)
+		end
+
+		if(key > root_key)
+			puts "Enter right branch tree search"
+			return contains_at_node?(key,root_node.right)
+		end
+	end
 	def clear_at_node(root_node)
 		if(root_node == null)
 			return
