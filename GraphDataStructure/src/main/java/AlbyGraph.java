@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by albertowusu-asare on 3/6/16.
@@ -18,15 +19,39 @@ public class AlbyGraph implements Graph {
         return false;
     }
 
+    public void addVertex(Vertex v) {
+
+    }
+
+    public Set<Vertex> vertexSet() {
+        return null;
+    }
+
+    public Vertex getVertexByEnumeratedVal() {
+        return null;
+    }
+
     public int numEdges() {
         return 0;
     }
 
-    public int numVertecies() {
+    public int numVerticies() {
         return 0;
     }
 
     public void insertEdge(Vertex from, Vertex to) {
+
+    }
+
+    public void displayGraph() {
+
+    }
+
+    public void printGraph() {
+
+    }
+
+    public void setDirection(String direction) {
 
     }
 }
