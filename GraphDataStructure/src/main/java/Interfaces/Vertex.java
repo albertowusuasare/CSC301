@@ -1,3 +1,5 @@
+package Interfaces;
+
 /**
  * Created by albertowusu-asare on 3/6/16.
  */
