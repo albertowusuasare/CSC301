@@ -9,4 +9,8 @@ public interface Vertex{
     void getNumOutDegree();
     void getVertexVal();
     void getEnumeratedValue();
+    @Override
+    int hashCode();
+    @Override
+    boolean equals(Object o);
 }

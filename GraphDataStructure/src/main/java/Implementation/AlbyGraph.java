@@ -66,12 +66,18 @@ public class AlbyGraph implements Graph {
     }
 
     public void insertEdge(Vertex from, Vertex to) {
+       insertEdge(from,to,isDirected);
+    }
+
+    private void insertEdge(Vertex from,Vertex to, boolean isDirected){
         HashSet<Vertex> hashSet;
         if((hashSet =this.adjacencyList.get(from)) == null){
             hashSet = new HashSet<Vertex>();
         }
         hashSet.add(to);
         edgeList.add(new GraphEdge(from,to));
+        if(!isDirected)
+            insertEdge(to,from,!isDirected);
     }
 
     public void displayGraph() {
@@ -84,6 +90,11 @@ public class AlbyGraph implements Graph {
 
     public void setDirection(String direction) {
 
+    }
+
+    @Override
+    public String toString(){
+        return edgeList.toString();
     }
 
     /**
@@ -109,8 +120,14 @@ public class AlbyGraph implements Graph {
           return this.weight;
         }
 
+        @Override
         public int hashCode() {
             return 0;
         }
+        @Override
+        public String toString(){
+            return "(" + from.toString() + "," +  to.toString() + ")";
+        }
+
     }
 }

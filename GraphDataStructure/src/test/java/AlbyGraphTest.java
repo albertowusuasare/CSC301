@@ -5,6 +5,8 @@ import Interfaces.Vertex;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -13,6 +15,7 @@ import static junit.framework.TestCase.assertTrue;
  * Created by albertowusu-asare on 3/6/16.
  */
 public class AlbyGraphTest {
+    private static final Logger logger = Logger.getLogger(AlbyGraphTest.class.getName());
     static final int NUM_GEN_MAX_VAL = 10;
     //@Test
     public void addVertexTest(){
@@ -24,26 +27,40 @@ public class AlbyGraphTest {
     }
 
     @Test
-    public void testInsertEdge(){
+    public void testInsertEdgeDirected(){
         boolean isDirected = true;
-        AlbyGraph graph = new AlbyGraph(isDirected);
         int numVertices = generateRandomNum(NUM_GEN_MAX_VAL / 2);
-        List<Vertex> vertexes = vertexGenerator(numVertices * 2 );
-        ListIterator<Vertex> lt = vertexes.listIterator();
+        AlbyGraph graph = insertTest(isDirected, numVertices);
+        assertTrue("Assert that number of edges is as expected :",
+                graph.numEdges() == numVertices);
+    }
 
+    @Test
+    public void testInsertEdgeUnDirected(){
+        boolean isDirected = false;
+        int numVertices = generateRandomNum(NUM_GEN_MAX_VAL / 2);
+        AlbyGraph graph = insertTest(isDirected,numVertices);
+        assertTrue("Assert that number of edges is as expected :",
+                graph.numEdges() == numVertices * 2);
+    }
+    private AlbyGraph insertTest(boolean isDirected, int numVertices){
+        AlbyGraph graph = new AlbyGraph(isDirected);
+        List<Vertex> vertexes = vertexGenerator(numVertices * 2 );//even number of vertices
+        ListIterator<Vertex> lt = vertexes.listIterator();
+        logger.log(Level.INFO,"Directed?:" + isDirected + " Generated Vertices : " + vertexes );
         while(lt.hasNext()){
             Vertex current = lt.next();
             Vertex next = null;
             if(lt.hasNext()) {
                 next = lt.next();
             }
-            graph.insertEdge(current,next);
+            graph.insertEdge(current, next);
         }
-        assertTrue("Assert that number of edges is as expected :",
-                graph.numEdges() == numVertices);
-
+        logger.log(Level.INFO, "Directed?:" + isDirected + " numEdgesExpected = " +
+                numVertices + " numEdges = " + graph.numEdges());
+        logger.log(Level.INFO, "Directed?:" + isDirected + " Graph :" + graph);
+        return graph;
     }
-
     //@Test
     public void testIsDirected(){
         AlbyGraph graph = new AlbyGraph();
@@ -116,6 +133,7 @@ public class AlbyGraphTest {
         List<Vertex> vertices = new ArrayList<Vertex>();
         for(int i = 0; i < numVertices;i++){
             GraphVertex<Integer,Integer> graphVertex = new GraphVertex(i);
+            vertices.add(graphVertex);
         }
         return vertices;
     }

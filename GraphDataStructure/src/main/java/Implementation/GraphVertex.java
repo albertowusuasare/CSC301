@@ -46,4 +46,25 @@ public class GraphVertex<W,V> implements Vertex {
     public void getEnumeratedValue() {
 
     }
+
+    @Override
+    public int hashCode(){
+        return 31 * 17 + this.value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == this)
+            return true;
+        if (!( o instanceof GraphVertex))
+            return false;
+        GraphVertex<W,V> obj = (GraphVertex<W,V>) o;
+        return (this.value == obj.value || (this.value != null && this.value.equals(obj.value)));
+    }
+
+    @Override
+    public String toString(){
+        return "{ " + this.value.toString() +" }";
+    }
+
 }

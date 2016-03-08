@@ -5,6 +5,4 @@ package Interfaces;
  */
 public interface Edge <W> {
     W getWeight();
-    @Override
-    int hashCode();
 }
