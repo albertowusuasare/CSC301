@@ -36,40 +36,12 @@ public class AlbyGraphTest {
     }
 
     @Test
-    public void testInsertEdgeUnDirected(){
+    public void testInsertEdgeUnDirected() {
         boolean isDirected = false;
         int numVertices = generateRandomNum(NUM_GEN_MAX_VAL / 2);
-        AlbyGraph graph = insertTest(isDirected,numVertices);
+        AlbyGraph graph = insertTest(isDirected, numVertices);
         assertTrue("Assert that number of edges is as expected :",
                 graph.numEdges() == numVertices * 2);
-    }
-    private AlbyGraph insertTest(boolean isDirected, int numVertices){
-        AlbyGraph graph = new AlbyGraph(isDirected);
-        List<Vertex> vertexes = vertexGenerator(numVertices * 2 );//even number of vertices
-        ListIterator<Vertex> lt = vertexes.listIterator();
-        logger.log(Level.INFO,"Directed?:" + isDirected + " Generated Vertices : " + vertexes );
-        while(lt.hasNext()){
-            Vertex current = lt.next();
-            Vertex next = null;
-            if(lt.hasNext()) {
-                next = lt.next();
-            }
-            graph.insertEdge(current, next);
-        }
-        logger.log(Level.INFO, "Directed?:" + isDirected + " numEdgesExpected = " +
-                numVertices + " numEdges = " + graph.numEdges());
-        logger.log(Level.INFO, "Directed?:" + isDirected + " Graph :" + graph);
-        return graph;
-    }
-    //@Test
-    public void testIsDirected(){
-        AlbyGraph graph = new AlbyGraph();
-        String  direction = "DIRECTED";
-        graph.setDirection(direction);
-        assertTrue("Assert that the graph is directed: ", graph.isDirected());
-        direction = "UNDIRECTED";
-        graph.setDirection(direction);
-        assertFalse("Assert that the graph is directed: ", graph.isDirected());
     }
 
     //@Test
@@ -128,6 +100,24 @@ public class AlbyGraphTest {
         return randomNum;
     }
 
+    private AlbyGraph insertTest(boolean isDirected, int numVertices){
+        AlbyGraph graph = new AlbyGraph(isDirected);
+        List<Vertex> vertexes = vertexGenerator(numVertices * 2 );//even number of vertices
+        ListIterator<Vertex> lt = vertexes.listIterator();
+        logger.log(Level.INFO,"Directed?:" + isDirected + " Generated Vertices : " + vertexes );
+        while(lt.hasNext()){
+            Vertex current = lt.next();
+            Vertex next = null;
+            if(lt.hasNext()) {
+                next = lt.next();
+            }
+            graph.insertEdge(current, next);
+        }
+        logger.log(Level.INFO, "Directed?:" + isDirected + " numEdgesExpected = " +
+                numVertices + " numEdges = " + graph.numEdges());
+        logger.log(Level.INFO, "Directed?:" + isDirected + " Graph :" + graph);
+        return graph;
+    }
 
     private List<Vertex> vertexGenerator(int numVertices) {
         List<Vertex> vertices = new ArrayList<Vertex>();

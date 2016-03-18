@@ -33,12 +33,12 @@ public class AlbyGraph implements Graph {
         this.vertexOutDegree = new HashMap<Vertex, Integer>();
     }
 
-    public List<Map.Entry<Vertex, Vertex>> getEdgeList() {
-        return null;
+    public List<Edge> getEdgeList() {
+        return this.edgeList;
     }
 
-    public List<Vertex> getAdjacentVertices(Vertex v) {
-        return null;
+    public Set<Vertex> getAdjacentVertices(Vertex v) {
+        return this.adjacencyList.get(v);
     }
 
     public boolean isDirected() {
@@ -85,12 +85,10 @@ public class AlbyGraph implements Graph {
     }
 
     public void printGraph() {
-
+        toString();
     }
 
-    public void setDirection(String direction) {
 
-    }
 
     @Override
     public String toString(){

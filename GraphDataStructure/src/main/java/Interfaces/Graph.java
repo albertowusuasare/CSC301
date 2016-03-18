@@ -8,8 +8,8 @@ import java.util.Set;
  * Created by albertowusu-asare on 3/6/16.
  */
 public interface Graph<V> {
-    List<Map.Entry<Vertex, Vertex>> getEdgeList();
-    List<Vertex> getAdjacentVertices(Vertex v);
+    List<Edge> getEdgeList();
+    Set<Vertex> getAdjacentVertices(Vertex v);
     boolean isDirected();
     void addVertex(Vertex v);
     Set<Vertex> vertexSet();
@@ -26,6 +26,4 @@ public interface Graph<V> {
     void insertEdge(Vertex from, Vertex to);
     void displayGraph();
     void printGraph();
-
-    void setDirection(String direction);
 }
