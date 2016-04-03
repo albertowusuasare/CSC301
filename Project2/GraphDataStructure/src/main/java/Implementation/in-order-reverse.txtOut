@@ -1,0 +1,7 @@
+Displaying the results for src/main/java/Implementation/in-order-reverse.txt ...
+Function Call => Time taken for function call
+DEPTH_FIRST_PRE_ORDER                                          =>0.302311
+DEPTH_FIRST_POST_ORDER                                         =>1.681544
+DEPTH_FIRST_IN_ORDER                                           =>0.354654
+BREADTH_FIRST                                                  =>0.226242
+INITIALIZE_TREE                                                =>19.440629

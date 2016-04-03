@@ -1,0 +1,7 @@
+Displaying the results for src/main/java/Implementation/random.txt ...
+Function Call => Time taken for function call
+DEPTH_FIRST_PRE_ORDER                                          =>0.238907
+DEPTH_FIRST_POST_ORDER                                         =>0.239591
+DEPTH_FIRST_IN_ORDER                                           =>0.209585
+BREADTH_FIRST                                                  =>0.167436
+INITIALIZE_TREE                                                =>15.562317
